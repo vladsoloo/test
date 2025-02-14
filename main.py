@@ -1,23 +1,17 @@
-class Animals:
-    def __init__(self, name):
-        self.name = name
-
-    def speak(self):
-        raise NotADirectoryError("Subclass must implement method.")
+from loguru import logger
 
 
-class Dog(Animals):
-    def speak(self):
-        return f"{self.name} говорит ГАВ!"
+def main():
+    logger.add('file log',
+               format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}',
+               rotation="3 days",
+               backtrace=True,
+               diagnose=True)
+
+    title = input("Введите название новеллы: ")
+    url = input("Введите ссылку на новеллу: ")
+    logger.info(f"Пользователь ввел название {title} новеллы и ссылку {url}.")
 
 
-class Cat(Animals):
-    def speak(self):
-        return f"{self.name} говорит МЯУ!"
-
-
-Dog = Dog("Бобик")
-Cat = Cat("Мурзик")
-
-print(Dog.speak())
-print(Cat.speak())
+if __name__ == '__main__':
+    main()
